@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+      .Light {
+        display: inline-block;
+        /* width: calc(100% / 32); */
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    <script>
+        let states=[
+                [10,   1,1,1,1,1,1,1,1,   1,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,1],
+                [10,   0,1,1,1,1,1,1,1,   1,1,1,1,1,1,1,0,    0,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,0],
+                [10,   0,0,1,1,1,1,1,1,   1,1,1,1,1,1,0,0,    0,0,1,1,1,1,1,1,    1,1,1,1,1,1,0,0],
+                [10,   0,0,0,1,1,1,1,1,   1,1,1,1,1,0,0,0,    0,0,0,1,1,1,1,1,    1,1,1,1,1,0,0,0],
+                [10,   0,0,0,0,1,1,1,1,   1,1,1,1,0,0,0,0,    0,0,0,0,1,1,1,1,    1,1,1,1,0,0,0,0],
+                [10,   0,0,0,0,0,1,1,1,   1,1,1,0,0,0,0,0,    0,0,0,0,0,1,1,1,    1,1,1,0,0,0,0,0],
+                [10,   0,0,0,0,0,0,1,1,   1,1,0,0,0,0,0,0,    0,0,0,0,0,0,1,1,    1,1,0,0,0,0,0,0],
+                [10,   0,0,0,0,0,0,0,1,   1,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,1,    1,0,0,0,0,0,0,0],
+                [10,   0,0,0,0,0,0,0,0,   1,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,1,    0,0,0,0,0,0,0,0],
+
+                [5,   0,0,0,0,0,0,0,1,   1,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,1,    1,0,0,0,0,0,0,0],
+                [5,   0,0,0,0,0,0,1,0,   0,1,0,0,0,0,0,0,    0,0,0,0,0,0,1,0,    0,1,0,0,0,0,0,0],
+                [5,   0,0,0,0,0,1,0,0,   0,0,1,0,0,0,0,0,    0,0,0,0,0,1,0,0,    0,0,1,0,0,0,0,0],
+                [5,   0,0,0,0,1,0,0,0,   0,0,0,1,0,0,0,0,    0,0,0,0,1,0,0,0,    0,0,0,1,0,0,0,0],
+                [5,   0,0,0,1,0,0,0,0,   0,0,0,0,1,0,0,0,    0,0,0,1,0,0,0,0,    0,0,0,0,1,0,0,0],
+                [5,   0,0,1,0,0,0,0,0,   0,0,0,0,0,1,0,0,    0,0,1,0,0,0,0,0,    0,0,0,0,0,1,0,0],
+                [5,   0,1,0,0,0,0,0,0,   0,0,0,0,0,0,1,0,    0,1,0,0,0,0,0,0,    0,0,0,0,0,0,1,0],
+                [5,   1,0,0,0,0,0,0,0,   0,0,0,0,0,0,0,1,    1,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,1],
+                [5,   0,0,0,0,0,0,0,0,   0,0,0,0,0,0,0,1,    0,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,0],
+
+                [1,   0,0,0,0,0,0,0,0,   0,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,0],
+                [1,   1,1,1,1,1,1,1,1,   1,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,1],
+                [1,   0,0,0,0,0,0,0,0,   0,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,0,    0,0,0,0,0,0,0,0],
+                [1,   1,1,1,1,1,1,1,1,   1,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,1,    1,1,1,1,1,1,1,1],
+            ];
+        document.addEventListener('DOMContentLoaded', function() {
+            let curState = 0;
+            let stateCnt=0;
+            setInterval(function() {
+                if(stateCnt<states[curState][0]){
+                    stateCnt++;
+                }else{
+                    stateCnt=0;
+                    curState++;
+                    if(curState>=states.length){
+                        curState=0;
+                    }
+                    for(let i=0;i<32;i++){
+                        document.getElementById('L'+(i+1).toString().padStart(2, '0')).innerHTML=(states[curState][i+1]==0?'&#x26AA;':'&#x26AB;');
+                    }
+                }
+            }, 100);
+        });
+    </script>
+  </head>
+  <body>
+    <span id="L01" class="Light"></span>
+    <span id="L02" class="Light"></span>
+    <span id="L03" class="Light"></span>
+    <span id="L04" class="Light"></span>
+    <span id="L05" class="Light"></span>
+    <span id="L06" class="Light"></span>
+    <span id="L07" class="Light"></span>
+    <span id="L08" class="Light"></span>
+    <span id="L09" class="Light"></span>
+    <span id="L10" class="Light"></span>
+    <span id="L11" class="Light"></span>
+    <span id="L12" class="Light"></span>
+    <span id="L13" class="Light"></span>
+    <span id="L14" class="Light"></span>
+    <span id="L15" class="Light"></span>
+    <span id="L16" class="Light"></span>
+    <span id="L17" class="Light"></span>
+    <span id="L18" class="Light"></span>
+    <span id="L19" class="Light"></span>
+    <span id="L20" class="Light"></span>
+    <span id="L21" class="Light"></span>
+    <span id="L22" class="Light"></span>
+    <span id="L23" class="Light"></span>
+    <span id="L24" class="Light"></span>
+    <span id="L25" class="Light"></span>
+    <span id="L26" class="Light"></span>
+    <span id="L27" class="Light"></span>
+    <span id="L28" class="Light"></span>
+    <span id="L29" class="Light"></span>
+    <span id="L30" class="Light"></span>
+    <span id="L31" class="Light"></span>
+    <span id="L32" class="Light"></span>
+  </body>
+</html>
